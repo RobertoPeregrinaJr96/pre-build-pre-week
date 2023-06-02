@@ -11,8 +11,10 @@ class NoteTags(db.Model):
     __name__ = "note_tags"
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
-    noteId = db.Column(db.Integer, ForeignKey="Notes")
-    tagId = db.Column(db.Integer, ForeignKey="Tags")
+    noteId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("Notes")), nullable=False)
+    tagId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("Tags")), nullable=False)
     # relationship
     note = db.relationship("Notes", back_populates="Notes")
     tag = db.relationship("Tags", back_populates="Tags", cascade="all,delete")

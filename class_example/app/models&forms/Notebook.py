@@ -34,7 +34,8 @@ class Notebooks(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     title = db.Column(db.String(50), nullable=False)
     is_default = db.Column(db.Boolean, nullable=False)
-    ownerId = db.Column(db.Integer, db.ForeignKey("User.id"))
+    ownerId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("User.id")), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False,

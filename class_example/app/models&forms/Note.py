@@ -14,9 +14,12 @@ class Notes(db.Model):
     title = db.Column(db.String(255))
     body = db.Column(db.StringField)
     trash = db.Column(db.Boolean)
-    ownerId = db.Column(db.Integer, db.ForeignKey("Users.id"))
-    notebookId = db.Column(db.Integer, db.ForeignKey("Notebooks.id"))
-    tagId = db.Column(db.Integer, db.ForeignKey("Tags.id"))
+    ownerId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("Users.id")), nullable=False)
+    notebookId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("Notebooks.id")), nullable=False)
+    tagId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod("Tags.id")), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False,
