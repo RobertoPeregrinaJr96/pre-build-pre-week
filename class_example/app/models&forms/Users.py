@@ -46,15 +46,18 @@ class Users(db.Model):
     __tablename__ = "users"
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
-    firstName = db.Column(db.String(50), nullable=False)
-    lastName = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.Integer, nullable=False)
+    # firstName = db.Column(db.String(50), nullable=False)
+    # lastName = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String, nullable=False)
     email = db.Column(db.String(50), nullable=False, unique=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
+
+    tasks = db.relationship("Tasks", back_populates="owner")
+    notebooks = db.relationship("Notebooks", back_populates="owner")
 
 
 """
@@ -92,22 +95,22 @@ Custom Validators for unique email and username
 
 
 def check_Email(form, field):
-    uniqueEmail = Users.query.filter(User.data["email"]).all
+    uniqueEmail = Users.query.filter(User.data["email"]).all()
     if field.data["email"] == uniqueEmail:
         raise ValidationError("account with this email already exist")
 
 
 def check_Username(form, field):
-    uniqueUsername = Users.query.filter(User.data["username"]).all
+    uniqueUsername = Users.query.filter(User.data["username"]).all()
     if field.data["username"] == uniqueUsername:
-        raise ValidationError("account with this email already exist")
+        raise ValidationError("account with this username already exist")
 
 
 class UserForm(FlaskForm):
-    firstName = StringField("First Name", validators=[
-                            DataRequired(), Length(min=1, max=50)])
-    lastName = StringField("Last Name", validators=[
-                           DataRequired(), Length(min=1, max=50)])
+    # firstName = StringField("First Name", validators=[
+    #                         DataRequired(), Length(min=1, max=50)])
+    # lastName = StringField("Last Name", validators=[
+    #                        DataRequired(), Length(min=1, max=50)])
     password = IntegerField("Password", validators=[
                             DataRequired(), Length(min=5, max=20)])
     email = StringField("Email", validators=[

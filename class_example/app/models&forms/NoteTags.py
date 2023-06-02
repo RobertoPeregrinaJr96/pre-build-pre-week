@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Length, Email
 db = SQLAlchemy()
 
 
-class NoteTags(db.Model):
+class NoteTags(db.Table):
     __name__ = "note_tags"
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
@@ -16,8 +16,10 @@ class NoteTags(db.Model):
     tagId = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("Tags")), nullable=False)
     # relationship
-    note = db.relationship("Notes", back_populates="Notes")
-    tag = db.relationship("Tags", back_populates="Tags", cascade="all,delete")
+    note = db.relationship("Notes", secondary="tags",
+                           back_populates="note_tags")
+    tag = db.relationship("Tags", secondary="notes",
+                          back_populates="note_tags")
 
 
 # No form since this is a join table to connect tags to notes as notes can have many tags and tags can be associated to many notes

@@ -25,12 +25,13 @@ class Notes(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
 
-    owner_id = db.relationship(
-        "Users", back_populates="Notebooks", cascade="all, delete")
-    notebook_id = db.relationship(
-        "Notebooks", back_populates="Notebooks", cascade="all, delete")
-    tagId = db.relationship(
-        "Tags", back_populates="Tags", cascade="all,delete")
+    # fix these
+    owners = db.relationship(
+        "Users", back_populates="notes", cascade="all, delete-orphan")
+    notebooks = db.relationship(
+        "Notebooks", back_populates="notes", cascade="all, delete-orphan")
+    tags = db.relationship(
+        "Tags", back_populates="notes", secondary="note_tags", cascade="all, delete-orphan")
 
 
 class NoteForm(FlaskForm):
@@ -42,3 +43,4 @@ class NoteForm(FlaskForm):
         # created_at = DateField("Created At")
         # updated_at = DateField("Updated At")
     '''
+# (datetime.datetime(2012,4,1,0,0) - datetime.datetime(1970,1,1)).total_seconds()

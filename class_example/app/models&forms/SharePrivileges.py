@@ -11,7 +11,7 @@ class Share_Privileges(db.Model):
     __tablename__ = "share_privileges"
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
-    read_privileges = db.Column(db.Boolean, default=False)
+    # read_privileges = db.Column(db.Boolean, default=False)
     write_privileges = db.Column(db.Boolean, default=False)
     ownerId = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod("Users.id")), nullable=False)
@@ -26,8 +26,8 @@ class Share_Privileges(db.Model):
     # Would this need a form or more of a react component that check if a button(where the JiJna will be housed for the read && write permissions and have a modal for it as well) is pressed to share and the credentials are processed in the Js logic?
 
 
-permissions = ["read", "write"]
+# permissions = ["read", "write"]
 
 
-class SharePrivilegesForm(FlaskForm):
-    privileges = SelectField("permission", choice=[i for i in permissions])
+# class SharePrivilegesForm(FlaskForm):
+#     privileges = SelectField("permission", choice=[i for i in permissions])

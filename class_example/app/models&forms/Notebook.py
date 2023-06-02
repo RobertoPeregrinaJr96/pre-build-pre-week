@@ -42,7 +42,8 @@ class Notebooks(db.Model):
                            default=datetime.datetime.utcnow)
     # Relationships
     owner = db.relationship(
-        "User", back_populates="User", cascade="all, delete")
+        "User", back_populates="notebooks", cascade="all, delete")
+    notes = db.relationship("Notebooks", back_populates="notes")
 
 
 """

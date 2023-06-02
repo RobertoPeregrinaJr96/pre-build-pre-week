@@ -16,11 +16,13 @@ class Tags(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    color = db.Column(db.String, nullable=False)
+    # color = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.datetime.utcnow)
+
+    notes = db.relationship("NoteTags", secondary="tags", back_populates="tag")
 
 
 def check_name(form, field):
@@ -31,5 +33,5 @@ def check_name(form, field):
 
 class TagForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Check_Name()])
-    color = SelectField(
-        "Color", choices=[i for i in colors], validators=[DataRequired()])
+    # color = SelectField(
+    #     "Color", choices=[i for i in colors], validators=[DataRequired()])
