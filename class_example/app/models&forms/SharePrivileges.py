@@ -11,10 +11,10 @@ class Share_Privileges(db.Model):
     __tablename__ = "share_privileges"
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
-    ownerId = db.Column(db.Integer, db.ForeignKey("Users.id"))
-    tagId = db.Column(db.Integer, db.ForeignKey("Tags.id"))
     read_privileges = db.Column(db.Boolean, default=False)
     write_privileges = db.Column(db.Boolean, default=False)
+    ownerId = db.Column(db.Integer, db.ForeignKey("Users.id"))
+    tagId = db.Column(db.Integer, db.ForeignKey("Tags.id"))
     #  Relationships
     owner = db.relationship(
         "Users", back_populates="Notebooks", cascade="all, delete")

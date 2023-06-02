@@ -8,11 +8,22 @@ db = SQLAlchemy()
 
 """
 -- Notebook --
-* able to CREATE
-* able to READ
-* able to UPDATE
-* able to DELETE
+* able to CREATE new notebook
+* able to READ the current notebooks in the database
+* able to UPDATE current notebooks in the database
+* able to DELETE current notebooks in the database
+
+* -- When CREATING a new notebook --
+    * MUST have Title(cannot exceed 50 characters,cannot be empty)
+    * OPTIONAL: can set the new notebook as the users default notebook
+
+* -- READING notebooks --
+
+* -- UPDATING notebooks --
+
+* -- DELETING notebooks
 ----------------------------------------------------------------------------
+* Notebooks : The user will be able to place newly created noted into a directory where they can organize and manipulate their notes
 
 """
 
